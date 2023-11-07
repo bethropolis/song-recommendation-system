@@ -31,7 +31,7 @@
 
   <div class="list mt-8 space-y-4">
     {#each files as file (file.id)}
-      <div class="file-item hover:bg-gray-100">
+      <div class="file-item hover:bg-gray-200 dark:hover:bg-gray-600">
         <div class="">
           <button class="dl-button bg-transparent outline-none border-none" on:click={()=>deleteFile(file.id)}>
             <svg
@@ -48,7 +48,7 @@
           </button>
         </div>
         <div class="w-full">
-          <span class="file-name">{file.fileName}</span>
+          <span class="file-name  text-gray-500 dark:text-gray-300">{file.fileName}</span>
         </div>
       </div>
     {/each}
@@ -71,7 +71,7 @@
   }
 
   .file-name {
-    @apply text-sm text-gray-500 select-none;
+    @apply text-sm select-none;
   }
 
   .dl-button {

@@ -1,6 +1,6 @@
 <script>
   import Navmain from "./navmain.svelte";
-  import About from "./about.svelte";
+  import About from "./settingsMain.svelte";
   import ChartsMain from "./chartsMain.svelte";
   import { onMount } from "svelte";
   import PlaylistMain from "./playlistMain.svelte";
@@ -28,7 +28,7 @@
 </script>
 
 <main
-  class="h-full relative overflow-y-auto bg-white border-l border-r w-full"
+  class="h-screen relative overflow-y-auto bg-white dark:border-gray-600 border-l border-r w-full dark:bg-gray-700 darK:text-white"
 >
   <Navmain />
 
@@ -36,4 +36,5 @@
 </main>
 
 <style>
+
 </style>

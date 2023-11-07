@@ -28,9 +28,12 @@
   });
 </script>
 
-<main class="h-screen py-8 relative overflow-y-auto bg-white border-l border-r sm:w-64 w-60">
+<main class="h-screen py-8 relative overflow-y-auto bg-white dark:bg-gray-700 border-l border-r dark:border-none sm:w-64 w-60">
   <!-- Render the current page component -->
   <svelte:component this={Page} />
 </main>
 
 
+<style>
+  
+</style>

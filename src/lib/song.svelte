@@ -3,11 +3,11 @@
 </script>
 
 <div class="results-container">
-  <div class="result-card">
+  <div class="result-card  bg-white border dark:border-none  dark:bg-gray-600">
     <img src={results.album_cover} alt={results.song} class="cover-img" />
     <div class="song-details">
-      <p class="song-name">{results.song}</p>
-      <p class="artist-name">{results.artist}</p>
+      <p class="song-name text-gray-800 dark:text-gray-100">{results.song}</p>
+      <p class="artist-name text-gray-500 dark:text-gray-300">{results.artist}</p>
     </div>
   </div>
 </div>
@@ -17,7 +17,7 @@
     @apply flex items-center space-x-2;
   }
   .result-card {
-    @apply flex items-center w-full mx-3 space-x-2 p-2 gap-3 border rounded-lg bg-white;
+    @apply flex items-center w-full mx-3 space-x-2 p-2 gap-3 rounded-lg;
   }
   .result-card:hover {
     @apply bg-slate-300;
@@ -32,10 +32,6 @@
   }
 
   .song-name {
-    @apply font-medium text-gray-800;
-  }
-
-  .artist-name {
-    @apply text-gray-500;
+    @apply font-medium;
   }
 </style>

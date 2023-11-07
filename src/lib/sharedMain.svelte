@@ -25,7 +25,7 @@
         @apply flex justify-between gap-4;
     }
     button {
-      @apply p-3 text-white bg-green-500 rounded-full;
+      @apply p-3 px-5 text-white bg-green-500 rounded-full;
     }
     button:hover {
       @apply bg-green-800;

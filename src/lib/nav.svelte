@@ -15,14 +15,14 @@
 </script>
 
 
-<div class="sidebar">
+<div class="sidebar bg-white dark:bg-slate-600">
   <a href="#">
     <img class="logo" src="vite.svg" alt="" />
   </a>
 
   <a
     href="/"
-    class="icon-link home"
+    class="icon-link home  text-gray-500  dark:text-slate-100"
     class:active={active === "home"}
     on:click={() => (active = "home")}
   >
@@ -44,7 +44,7 @@
 
   <a
     href="/shared"
-    class="icon-link users"
+    class="icon-link  users text-gray-500  dark:text-slate-100"
     class:active={active === "shared"}
     on:click={() => (active = "shared")}
   >
@@ -66,7 +66,7 @@
 
   <a
     href="/charts"
-    class="icon-link pie-chart"
+    class="icon-link pie-chart text-gray-500  dark:text-slate-100"
     class:active={active === "charts"}
     on:click={() => (active = "charts")}
   >
@@ -93,7 +93,7 @@
 
   <a
     href="/settings"
-    class="icon-link settings"
+    class="icon-link settings text-gray-500  dark:text-slate-100"
     class:active={active === "settings"}
     on:click={() => (active = "settings")}
   >
@@ -121,7 +121,7 @@
 
 <style>
   .sidebar {
-    @apply flex flex-col items-center w-16 h-screen py-8 space-y-8 bg-white;
+    @apply flex flex-col items-center w-16 h-screen py-8 space-y-8 ;
   }
 
   .logo {
@@ -129,8 +129,9 @@
   }
 
   .icon-link {
-    @apply p-1.5 text-gray-500 transition-colors duration-200 rounded-lg;
+    @apply p-1.5 transition-colors duration-200 rounded-lg;
   }
+
   .icon-link:focus {
     @apply text-green-500 bg-gray-100;
   }
@@ -162,4 +163,9 @@
   .active {
     @apply text-green-500 transition-colors duration-200 bg-green-100 rounded-lg stroke-current;
   }
+
+
+  /* @medie (prefered-color-scheme: dark){
+
+  } */
 </style>

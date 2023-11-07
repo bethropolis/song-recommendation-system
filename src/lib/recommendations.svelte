@@ -10,7 +10,7 @@
     <p>Loading...</p>
   {:then results}
     {#if results.length > 0}
-      <h3 class="text-lg font-medium mb-2">
+      <h3 class="text-lg font-medium mb-2 dark:text-slate-200">
         song Recommendations similar to above:
       </h3>
       {#each results as result}
