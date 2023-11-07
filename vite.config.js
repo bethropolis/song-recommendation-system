@@ -6,5 +6,8 @@ export default defineConfig({
   plugins: [svelte()],
   optimizeDeps: {
     exclude: ['js-big-decimal']
+  },
+  build: {
+    target: 'esnext'
   }
 })

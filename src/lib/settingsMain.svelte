@@ -98,30 +98,4 @@
   .input {
     @apply border rounded px-2 py-1;
   }
-
-  .toggle {
-    @apply relative inline-flex items-center h-6 rounded-full w-11;
-  }
-
-  .toggle input {
-    @apply opacity-0 w-0 h-0;
-  }
-
-  .toggle-slider {
-    @apply absolute h-4 w-4 rounded-full bg-white shadow inset-y-0 left-0 transition;
-  }
-
-  .toggle-slider:before {
-    @apply absolute inset-0 h-full w-full flex items-center justify-center text-xs font-medium uppercase;
-    content: "Off";
-  }
-
-  .toggle input:checked + .toggle-slider {
-    @apply transform translate-x-full;
-  }
-
-  .toggle input:checked + .toggle-slider:before {
-    @apply text-green-500;
-    content: "On";
-  }
 </style>

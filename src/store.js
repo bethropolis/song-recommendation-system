@@ -21,10 +21,10 @@ async function getUsername(){
     return usr.username;
 }
 
-
+let username = getUsername();
 
 const defaultSettings = {
-    username: await getUsername(),
+    username,
     maxRecommendation:DB.get("rec_no") || 3,
   };
 

@@ -124,7 +124,4 @@
     @apply p-2 mt-2 items-center bg-green-500 text-white rounded-r-lg cursor-pointer;
   }
 
-  .search-icon {
-    @apply fill-current w-6 h-6;
-  }
 </style>
