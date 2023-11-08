@@ -1,6 +1,11 @@
 <script>
   import { toggleDarkClass } from "../static/js/extra";
-  import { sidebarIsopen } from "../store";
+  import { darkMode, sidebarIsopen } from "../store";
+
+
+  $: {
+    document.querySelector("meta[name='theme-color']").content = $darkMode ? "#374151" : "#FFFFFF";
+  }
 </script>
 
 <nav class="justify-between md:justify-end">

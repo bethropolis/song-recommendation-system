@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { DB, db } from "../static/js/db";
   import showToast from "../static/js/toast";
+  import { refreshShare } from "../store";
 
   let files = [];
 
@@ -20,6 +21,7 @@
 
     setTimeout(() => {
       refreshing = false;
+      $refreshShare = false;
     }, 1000);
   };
 
@@ -43,11 +45,13 @@
     // @ts-ignore
     await db.openFiles.bulkPut(data);
 
-    showToast("Data loaded successfully", "success");
+    await showToast("Data loaded successfully", "success");
     } catch (error) {
-      showToast(error, "error");
+      await showToast(error, "error");
     }
   }
+
+  $: $refreshShare == true && refresh();
 
   onMount(fetchFiles); // Fetch the files when the component is mounted
 </script>

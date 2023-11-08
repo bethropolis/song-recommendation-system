@@ -47,3 +47,5 @@ let settings = DB.get("storedSettings") || defaultSettings;
 
 // create and export the userSettings store using the writable function
 export const userSettings = writable(settings);
+
+export let refreshShare = writable(false);

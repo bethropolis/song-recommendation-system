@@ -30,6 +30,7 @@
 
 <main class="half md:shadow-none shadow-md bg-white bg-transition md:block dark:bg-gray-700 dark:border-none {$sidebarIsopen ? "w-1/2":"hidden"} md:w-60">
   <!-- Render the current page component -->
+  
   <svelte:component this={Page} />
 </main>
 

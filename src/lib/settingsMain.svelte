@@ -116,7 +116,7 @@
   }
 
   .title {
-    @apply text-3xl font-bold mb-4;
+    @apply text-3xl font-bold mb-4 uppercase;
   }
 
   .option {

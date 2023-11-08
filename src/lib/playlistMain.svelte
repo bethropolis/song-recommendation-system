@@ -130,7 +130,7 @@
   }
 
   .search-heading {
-    @apply text-2xl font-bold;
+    @apply text-2xl font-bold my-2 uppercase;
   }
   .input-group {
     @apply flex;

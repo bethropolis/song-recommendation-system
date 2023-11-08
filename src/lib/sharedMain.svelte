@@ -4,6 +4,7 @@
     handleSharedDataUpload,
   } from "../static/js/share";
   import showToast from "../static/js/toast";
+  import { refreshShare } from "../store";
 
   // Function to trigger file input click
   function triggerFileInputClick() {
@@ -11,12 +12,13 @@
     fileInput.click();
   }
 
+
   async function handleUpload(event) {
     const uploadResult = await handleSharedDataUpload(event);
-    console.log("🚀 ~ file: sharedMain.svelte:16 ~ handleUpload ~ uploadResult:", uploadResult)
 
     if (uploadResult.success) {
       showToast(uploadResult.message, "success");
+      $refreshShare = true;
     } else {
       showToast(uploadResult.message, "error");
     }
@@ -32,7 +34,7 @@
       id="fileInput"
       hidden
     />
-    <button on:click={triggerFileInputClick}>Import Data</button>
+    <button on:click={triggerFileInputClick}>Import data</button>
     <button on:click={handleExportButtonClick}>Export data</button>
   </div>
 </main>

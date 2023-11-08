@@ -3,6 +3,7 @@
   import { checkIfDataAvailable } from "../static/js/extra";
   import { userColors } from "../store";
 
+  
   // function to add a new color to the store
   function addColor() {
     // generate a random hex color
