@@ -7,6 +7,7 @@ export async function handleFileUpload(event) {
 
   const uploadPromises = [];
 
+  let errorMessage = ''; // Initialize an empty error message
   for (const file of files) {
     const uploadPromise = new Promise(async (resolve, reject) => {
       const reader = new FileReader();
@@ -14,20 +15,30 @@ export async function handleFileUpload(event) {
       reader.onload = async function (e) {
         const fileData = JSON.stringify(e.target.result);
 
-        const uploadedFile = {
-          fileName: file.name,
-          fileData,
-          timestamp: new Date(),
-        };
+        if ((JSON.parse(e.target.result)).user !== undefined) {
+          errorMessage = `Wrong data format in ${file.name}`; // Set the error message
+        }
 
-        try {
-          await db.openFiles.put(uploadedFile);
-          await db.userUploadedFiles.put(uploadedFile);
-          console.log(`${file.name} uploaded and stored in the database.`);
-          resolve();
-        } catch (error) {
-          console.error(`Error uploading ${file.name}: ${error}`);
-          reject(error);
+        if (!errorMessage) {
+          const uploadedFile = {
+            fileName: file.name,
+            fileData,
+            timestamp: new Date(),
+          };
+
+          try {
+            await db.openFiles.put(uploadedFile);
+            await db.userUploadedFiles.put(uploadedFile);
+            console.log(`${file.name} uploaded and stored in the database.`);
+            resolve();
+          } catch (error) {
+            console.error(`Error uploading ${file.name}: ${error}`);
+            reject(error);
+          }
+        } else {
+          // You can handle the case of wrong data format here
+          console.error(errorMessage);
+          reject(new Error(errorMessage));
         }
       };
 
@@ -39,8 +50,8 @@ export async function handleFileUpload(event) {
 
   try {
     await Promise.all(uploadPromises);
-    return true;
+    return errorMessage ? { success: false, message: errorMessage } : { success: true, message: 'Files uploaded successfully' };
   } catch (error) {
-    return false; 
+    return { success: false, message: errorMessage || 'Error uploading files' };
   }
 }

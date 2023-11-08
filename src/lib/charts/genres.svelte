@@ -2,13 +2,15 @@
   import { onMount } from "svelte";
   import Chart from "chart.js/auto";
   import { DB, db } from "../../static/js/db";
-  import { userColors } from "../../store";
+  import { userColors } from "../../store"; // import userColors as a writable store
 
   let genreData = {};
+  let chart; // declare chart variable
 
-  onMount(async () => {
+  async function createChart() {
+    // make the function async
     // Fetch data from the Dexie database
-    const files = await db.openFiles.toArray();
+    const files = await db.openFiles.toArray(); // use await to get the files
 
     // Loop through the files and extract genre data
     files.forEach((file) => {
@@ -29,6 +31,11 @@
     const canvas = document.getElementById("genrePieChart");
     let borderColor = DB.get("darkMode") ? "#ffffff" : "#cccccc";
 
+    // Destroy the existing chart if it exists
+    if (chart) {
+      chart.destroy();
+    }
+
     chart = new Chart(canvas, {
       type: "doughnut",
       data: {
@@ -36,7 +43,7 @@
         datasets: [
           {
             data: Object.values(genreData),
-            backgroundColor: $userColors,
+            backgroundColor: $userColors, // Use $userColors directly
             borderColor: borderColor,
             borderWidth: 1,
           },
@@ -50,11 +57,19 @@
         },
       },
     });
+  }
+
+  onMount(createChart);
+
+  // Subscribe to userColors changes
+  userColors.subscribe(() => {
+    createChart();
   });
 </script>
 
+<div class="w-full">
 <canvas id="genrePieChart" />
-
+</div>
 <style>
   canvas {
     @apply mx-auto;
@@ -65,10 +80,25 @@
     max-height: 350px;
     height: 100%;
 
-    /* Set a fixed width for larger screens */
-    @media (min-width: 1024px) {
+    @media screen and (min-width: 1024px) {
       max-width: 350px;
       max-height: 350px;
     }
+
+    @media screen and (max-width: 768px) {
+      max-width: 300px;
+      max-height: 300px;
+    }
+
+    @media screen and (max-width: 480px) {
+      max-width: 250px;
+      max-height: 250px;
+    }
+
+    @media screen and (max-width: 320px) {
+      max-width: 200px;
+      max-height: 200px;
+    }
+
   }
 </style>

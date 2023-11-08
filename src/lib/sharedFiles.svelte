@@ -1,11 +1,10 @@
 <script>
   import { onMount } from "svelte";
-  import { db } from "../static/js/db";
-  import Toasty from "./toasty.svelte";
+  import { DB, db } from "../static/js/db";
+  import showToast from "../static/js/toast";
 
   let files = [];
 
-  let dataLoad = false;
   let refreshing = false;
   // Function to fetch files from the database
   async function fetchFiles() {
@@ -17,7 +16,6 @@
 
   const refresh = () => {
     refreshing = true;
-    console.log("refreshing");
     fetchFiles();
 
     setTimeout(() => {
@@ -32,21 +30,23 @@
   }
 
   async function loadData(id) {
-    dataLoad = true;
+    try{ 
     // @ts-ignore
     await db.openFiles.clear();
     // @ts-ignore
     let storedData = await db.sharedData.get(id);
 
-    let data = storedData.data;
-    console.log("🚀 ~ file: sharedFiles.svelte:32 ~ loadData ~ data:", data);
+    let data = storedData?.data;
+
+    DB.set("colors", storedData.colors||[])
 
     // @ts-ignore
-    db.openFiles.bulkPut(data);
+    await db.openFiles.bulkPut(data);
 
-    setTimeout(() => {
-      dataLoad = false;
-    }, 1000);
+    showToast("Data loaded successfully", "success");
+    } catch (error) {
+      showToast(error, "error");
+    }
   }
 
   onMount(fetchFiles); // Fetch the files when the component is mounted
@@ -75,9 +75,8 @@
       >
     </div>
   </div>
-
-  <Toasty bind:show={dataLoad} message="Data has been loaded."/>
   <div class="list mt-8 space-y-4">
+    {#if files.length > 0}
     {#each files as file (file.id)}
       <div class="file-item hover:bg-gray-200 dark:hover:bg-gray-600">
         <div class="flex flex-col justify-between">
@@ -124,6 +123,13 @@
         </div>
       </div>
     {/each}
+    {:else}
+      <div class="text-center">
+        <span class="text-gray-500 dark:text-gray-300 font-small">
+          No files imported
+        </span>
+      </div>
+    {/if}
   </div>
 </div>
 

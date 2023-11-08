@@ -2,11 +2,11 @@
 import Dexie from 'dexie';
 
 export const db = new Dexie('MusicRecommendationAppDatabase');
-db.version(1).stores({
+db.version(2).stores({
   users: '++id,&username',
   openFiles: '++id,&fileName,fileData,timestamp', 
   userUploadedFiles: '++id,&fileName,fileData,timestamp',
-  sharedData: '++id,userId,data,timestamp',
+  sharedData: '++id,userId, colors, data,timestamp',
 });
 
 
@@ -20,7 +20,7 @@ export const DB = {
     localStorage.setItem(key, JSON.stringify(value));
   },
   get: (key) => {
-    const value = localStorage.getItem(key);
+    const value = localStorage?.getItem(key);
     return value ? JSON.parse(value) : null;
   },
   update: (key, value) => {

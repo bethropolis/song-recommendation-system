@@ -14,7 +14,6 @@
 
 
   const refresh = (()=>{
-    console.log("refreshing")
     fetchFiles();
   })
   async function deleteFile(id){
@@ -30,6 +29,7 @@
   <h2 class="heading">Playlist Files</h2>
 
   <div class="list mt-8 space-y-4">
+    {#if files.length > 0}
     {#each files as file (file.id)}
       <div class="file-item hover:bg-gray-200 dark:hover:bg-gray-600">
         <div class="">
@@ -52,6 +52,13 @@
         </div>
       </div>
     {/each}
+    {:else}
+      <div class="text-center">
+        <span class="text-gray-500 dark:text-gray-300 font-small">
+          No files found
+        </span>
+      </div>
+    {/if}
   </div>
   <Uploadbtn {refresh}/>
 </div>

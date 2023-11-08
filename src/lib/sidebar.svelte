@@ -5,7 +5,7 @@
   import SharedFiles from "./sharedFiles.svelte";
   import Charts from "./charts.svelte";
   import Settings from "./settings.svelte";
-  import { active_tab } from "../store";
+  import { active_tab, sidebarIsopen } from "../store";
 
   const routes = [
     { path: "/", component: FilesList },
@@ -28,12 +28,15 @@
   });
 </script>
 
-<main class="h-screen py-8 relative overflow-y-auto bg-white dark:bg-gray-700 border-l border-r dark:border-none sm:w-64 w-60">
+<main class="half md:shadow-none shadow-md bg-white bg-transition md:block dark:bg-gray-700 dark:border-none {$sidebarIsopen ? "w-1/2":"hidden"} md:w-60">
   <!-- Render the current page component -->
   <svelte:component this={Page} />
 </main>
 
 
 <style>
-  
+  main{
+    transition: width 0.5s;
+    @apply h-screen py-8 relative overflow-y-auto border-l z-30;
+  }
 </style>

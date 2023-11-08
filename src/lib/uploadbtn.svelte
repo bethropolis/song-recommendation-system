@@ -1,4 +1,5 @@
 <script>
+  import showToast from "../static/js/toast";
   import { handleFileUpload } from "../static/js/upload";
 
   export let refresh;
@@ -10,6 +11,12 @@
 
   async function makeUpload(e) {
     let isUploaded = await handleFileUpload(e);
+
+    if (isUploaded.success) {
+      showToast(isUploaded.message, "success");
+    } else {
+      showToast(isUploaded.message, "error");
+    }
     await refresh();
   }
 </script>
@@ -22,6 +29,7 @@
     hidden
     accept=".json"
     on:change={makeUpload}
+    multiple
   />
   <button class="upload-btn" on:click={triggerFileUpload}>
     <span>upload</span>

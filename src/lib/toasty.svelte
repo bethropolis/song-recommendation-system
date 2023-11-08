@@ -1,15 +1,22 @@
 <script>
-	import { onMount } from 'svelte';
-	import toast, { Toaster } from 'svelte-french-toast';
+  import toast, { Toaster } from "svelte-french-toast";
 
-	export let show = false;
-	export let message = '';
-	export let type = 'success';
+  export let show = false;
+  export let message = "";
+  export let type = "success";
 
-
-	$: if(show){
-		toast.call(type, message);
-	}
+  $: if (show) {
+    switch (type) {
+      case "error":
+        toast.error(message);
+        break;
+      case "success":
+        toast.success(message);
+        break;
+      default:
+        toast.call(type, message);
+    }
+  }
 </script>
 
 <Toaster />

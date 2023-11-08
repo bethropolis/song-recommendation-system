@@ -3,6 +3,7 @@
   import { db } from "../static/js/db";
   import Recommendations from "./recommendations.svelte";
   import { userSettings } from "../store";
+  import { checkIfDataAvailable } from "../static/js/extra";
 
   let searchTerm = "";
   let searchResults = [];
@@ -88,21 +89,44 @@
       >
     </button>
   </div>
-{#if searchTerm}
-  <div class="search-result">
-    <h3 class="text-lg font-medium mb-2  text-gray-500  dark:text-slate-100">Search Results:</h3>
-    <SearchResults bind:searchResults />
-  </div>
 
-  <div class="recomendations">
-    <Recommendations bind:recommendations />
-  </div>
-  {/if}
+  {#await checkIfDataAvailable()}
+    <div class="msg">
+      <h3 class="text-lg font-medium mb-2 text-gray-500 dark:text-slate-100">
+        Loading...
+      </h3>
+    </div>
+    
+  {:then  dataAvailable}
+    {#if !dataAvailable && !searchTerm}
+      <div class="msg">
+        <h3 class="text-lg font-medium mb-2 text-red-500 dark:text-red-200">
+          No playlist files available, please upload.
+        </h3>
+      </div>
+    {/if}
+    {#if searchTerm}
+      <div class="search-result">
+        <h3 class="text-lg font-medium mb-2 text-gray-500 dark:text-slate-100">
+          Search Results:
+        </h3>
+        <SearchResults bind:searchResults />
+      </div>
+
+      <div class="recomendations">
+        <Recommendations bind:recommendations />
+      </div>
+      
+    {/if}
+  {/await}
 </div>
 
 <style>
   .search-container {
     @apply p-4;
+  }
+  .msg{
+    @apply p-4 my-4 grid place-content-center;
   }
 
   .search-heading {
@@ -123,5 +147,4 @@
   .search-button {
     @apply p-2 mt-2 items-center bg-green-500 text-white rounded-r-lg cursor-pointer;
   }
-
 </style>
