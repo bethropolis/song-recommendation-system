@@ -2,7 +2,7 @@
   import { DB, db } from "../static/js/db";
   import showToast from "../static/js/toast";
   import { userSettings } from "../store";
-  import { get } from "svelte/store"; // import the get method
+  import { get } from "svelte/store";
 
   // create a function to handle the input changes
   function handleChange(event) {
@@ -14,9 +14,6 @@
       return settings;
     });
 
-
-   
-
     // use the get method to get the current value of the store
     const currentSettings = get(userSettings);
     // save the current settings to the DB
@@ -24,7 +21,10 @@
   }
 
   async function ChangeUsername(event) {
-    await db.users.update(1, { username: event.target.value });
+    const firstItem = await db.users.orderBy(':id').first();
+    if (firstItem) {
+      await db.users.update(firstItem.id,{ username: event.target.value });
+    }
 
     handleChange(event);
   }

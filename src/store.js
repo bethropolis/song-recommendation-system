@@ -31,7 +31,7 @@ export let colors = DB?.get("colors") ? DB.get("colors") : defaultColors;
 export const userColors = writable(colors);
 
 async function fetchUsername() {
-  const user = await db.users.get(1);
+  const user = await db.users.orderBy(':id').first()
   return user ? user.username : "default";
 }
 

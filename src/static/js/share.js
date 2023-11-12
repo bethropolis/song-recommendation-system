@@ -4,7 +4,7 @@ import { DB, db } from "./db";
 
 async function exportData(username, openFiles) {
 
-    if(username && username == "default"){
+    if (username && username == "default") {
         username = prompt("Please enter your username for export:");
         await db.users.update(1, { username });
     }
@@ -32,15 +32,19 @@ async function exportData(username, openFiles) {
 // @ts-ignore
 export async function handleExportButtonClick() {
     // @ts-ignore
-    const username = await db.users.get(1);
+    const username = await db.users.orderBy(':id').first();
     console.log("🚀 ~ file: share.js:36 ~ handleExportButtonClick ~ username:", username)
 
-   
+
     // @ts-ignore
     const openFiles = await db.openFiles.toArray()
-    exportData(username.username, openFiles);
-}
 
+    if (username.username != undefined) {
+        exportData(username?.username, openFiles);
+    } else {
+        exportData("default", openFiles)
+    }
+}
 
 
 // Function to handle the file upload
