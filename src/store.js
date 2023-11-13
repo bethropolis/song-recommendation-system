@@ -14,6 +14,7 @@ export let darkMode = writable(isDarkModdeOn);
 
 
 if(isDarkModdeOn) {
+  document.querySelector("meta[name='theme-color']").content = "#374151";
   toggleDarkClass();
 }
 
