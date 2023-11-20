@@ -239,11 +239,11 @@
   }
 
   .icon-link:focus {
-    @apply text-blue-500 bg-gray-100;
+    @apply text-green-500 bg-gray-100;
   }
 
   .icon-link:hover {
-    @apply text-blue-500 bg-gray-100;
+    @apply text-green-500 bg-gray-100;
   }
 
   .icon {
@@ -267,7 +267,7 @@
   }
 
   .active {
-    @apply text-blue-500 transition-colors duration-200 bg-blue-100 rounded-lg stroke-current;
+    @apply text-green-500 transition-colors duration-200 bg-green-100 rounded-lg stroke-current;
   }
 
   /* @medie (prefered-color-scheme: dark){
